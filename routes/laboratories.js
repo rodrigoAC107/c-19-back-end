@@ -8,6 +8,7 @@ const {
   updateLaboratory,
   deleteLaboratory,
 } = require("../controllers/laboratories");
+const { tokenValidation } = require("../middlewares/token-validation");
 const { validation } = require("../middlewares/validation-results");
 const { route } = require("./cases");
 
@@ -18,12 +19,12 @@ const router = Router();
  */
 
 // Get All Laboratories
-router.get("/", getLaboratories);
+router.get("/", [tokenValidation], getLaboratories);
 
 // Get Laboratory
 router.get(
   "/:id",
-  [check("id", "Dont mongo id valid").isMongoId(), validation],
+  [tokenValidation, check("id", "Dont mongo id valid").isMongoId(), validation],
   getLaboratory
 );
 
@@ -31,6 +32,7 @@ router.get(
 router.post(
   "/",
   [
+    tokenValidation,
     check("protocol", "protocol is required").not().isEmpty(),
     check("protocol_type", "protocol type is required").not().isEmpty(),
     check("person", "person type is required").not().isEmpty(),
@@ -44,6 +46,7 @@ router.post(
 router.put(
   '/:id', 
   [
+    tokenValidation,
     check('id', 'Dont mongo id valid'),
     check("protocol", "protocol is required").not().isEmpty(),
     check("protocol_type", "protocol type is required").not().isEmpty(),
@@ -58,6 +61,7 @@ router.put(
 router.delete(
   '/:id', 
   [
+    tokenValidation,
     check('id', 'Dont mongo id valid'),
     validation
   ],

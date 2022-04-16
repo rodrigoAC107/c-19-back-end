@@ -12,6 +12,7 @@ const {
   putUser,
   deleteUser,
 } = require("../controllers/users");
+const { tokenValidation } = require("../middlewares/token-validation");
 
 /**
  * {{url}}/api/users
@@ -21,6 +22,7 @@ const {
 router.get(
   "/",
   [
+    tokenValidation,
     check("email", "email is required").not().isEmpty().isEmail().normalizeEmail(), 
     validation
   ],
@@ -31,6 +33,7 @@ router.get(
 router.post(
   "/",
   [
+    tokenValidation,
     check("email").isEmail().normalizeEmail().custom(emailUnique),
     check("email", "email is required").not().isEmpty(),
     check("name", "name is required").not().isEmpty(),
@@ -46,6 +49,7 @@ router.post(
 router.put(
   "/:id",
   [
+    tokenValidation,
     check("id", "Dont mongo id valid").isMongoId(),
     check("email").isEmail().normalizeEmail().custom(emailUnique),
     check("email", "email is required").not().isEmpty(),
@@ -59,6 +63,7 @@ router.put(
 //  Delete User - public
 router.delete("/:id",
   [
+    tokenValidation,
     check('id', 'Dont mongo id valid').isMongoId(),
     validation
   ], 
