@@ -11,6 +11,7 @@ const {
   createUser,
   putUser,
   deleteUser,
+  meUser,
 } = require("../controllers/users");
 const { tokenValidation } = require("../middlewares/token-validation");
 
@@ -18,7 +19,17 @@ const { tokenValidation } = require("../middlewares/token-validation");
  * {{url}}/api/users
  */
 
-//  Get User - public
+// Get User Auth
+router.get(
+  '/me',
+  [
+    tokenValidation,
+    validation
+  ],
+  meUser
+)
+
+//  Get User
 router.get(
   "/",
   [
@@ -29,7 +40,7 @@ router.get(
   getUser
 );
 
-//  Create User - public
+//  Create User
 router.post(
   "/",
   [
@@ -45,7 +56,7 @@ router.post(
   createUser
 );
 
-//  Put User - public
+//  Put User
 router.put(
   "/:id",
   [
@@ -60,7 +71,7 @@ router.put(
   putUser
 );
 
-//  Delete User - public
+//  Delete User
 router.delete("/:id",
   [
     tokenValidation,

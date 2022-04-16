@@ -3,12 +3,24 @@ const bcryptjs = require("bcryptjs");
 const { response } = require("express");
 const { User } = require('../models');
 
+const meUser = async (req, res = response) => {
+
+  const { email } = req.user;
+
+  const user = await User.findOne({ email });
+
+  res.json( user );
+
+}
+
 
 const getUser = async(req, res = response) => {
 
-  const { email } = req.params;
+  const { email } = req.body;
+
+  console.log(email);
   
-  const user = await User.findOne( email );
+  const user = await User.findOne({ email });
 
   res.json( user );
 }
@@ -57,6 +69,7 @@ const deleteUser = async(req, res = response) => {
 }
 
 module.exports = {
+  meUser,
   getUser,
   createUser,
   putUser,
