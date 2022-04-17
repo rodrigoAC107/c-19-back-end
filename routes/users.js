@@ -62,7 +62,7 @@ router.put(
   [
     tokenValidation,
     check("id", "Dont mongo id valid").isMongoId(),
-    check("email").isEmail().normalizeEmail().custom(emailUnique),
+    check("email").isEmail().normalizeEmail(),
     check("email", "email is required").not().isEmpty(),
     check("name", "name is required").not().isEmpty(),
     check("password", "password must have more than 6 characters").not().isEmpty(),
