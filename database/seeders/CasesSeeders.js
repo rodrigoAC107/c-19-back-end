@@ -24,11 +24,14 @@ const getData = () => {
       email: faker.internet.email(),
       phone: faker.phone.phoneNumber("+54 9 15# ### ###"),
       current_state: faker.random.arrayElement([
-        "con covid 19",
-        "sin covid 19",
+        "with covid 19",
+        "without covid 19",
+        "quarantine",
+        "dead",
+        "discarded"
       ]),
-      current_state_type: faker.random.arrayElement(["test rapido", "PCR"]),
-      triage: faker.random.arrayElement(["MODERADO", "CRITICO", "BAJO"]),
+      current_state_type: faker.random.arrayElement(["Fast test", "PCR"]),
+      triage: faker.random.arrayElement(["MODERATE", "CRITICAL", "LOW"]),
     });
   }
 
