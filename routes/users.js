@@ -48,9 +48,7 @@ router.post(
     check("email").isEmail().normalizeEmail().custom(emailUnique),
     check("email", "email is required").not().isEmpty(),
     check("name", "name is required").not().isEmpty(),
-    check("password", "password must have more than 6 characters")
-      .not()
-      .isEmpty(),
+    check("password", "password must have more than 6 characters").isEmpty(),
     validation,
   ],
   createUser
