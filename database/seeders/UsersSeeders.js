@@ -1,7 +1,6 @@
 const { faker } = require('@faker-js/faker');
 const bcryptjs = require("bcryptjs");
-const mongoose = require("mongoose");
-const User = mongoose.model('User');
+const { User } = require("../../models");
 const DOCUMENTS = 10;
 
 const getData = () => {
@@ -34,9 +33,9 @@ const getData = () => {
 const userSeed = (callback) => {
   let data = getData();
   User.create(data, (err, result) => {
-      if (err) throw err;
-      console.log("Seeding " + User.modelName + " collection");
-      callback();
+    if (err) throw err;
+    console.log("Seeding " + User.modelName + " collection");
+    callback();
   });
 };
 

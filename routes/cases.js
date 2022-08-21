@@ -9,8 +9,10 @@ const {
   getCase,
 } = require("../controllers/cases");
 const { emailUnique } = require("../middlewares/cases-validation");
+const { paginatedResults } = require("../middlewares/pagination");
 const { tokenValidation } = require("../middlewares/token-validation");
 const { validation } = require("../middlewares/validation-results");
+const { Cases } = require("../models");
 
 const router = Router();
 

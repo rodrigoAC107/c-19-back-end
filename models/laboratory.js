@@ -33,6 +33,11 @@ const LaboratoriesSchema = Schema({
   },
   resulted: {
     type: String,
+    default: null
+  },
+  resulted_type: {
+    type: String,
+    default: null
   },
   created_at: {
     type: Date,

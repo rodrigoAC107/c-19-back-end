@@ -48,6 +48,18 @@ const CasesSchema = Schema({
     type: String,
     required: [true, "PHONE is required"],
   },
+  current_state: {
+    type: String,
+    default: null,
+  },
+  current_state_type: {
+    type: String,
+    default: null,
+  },
+  triage: {
+    type: String,
+    default: null,
+  },
   created_at: {
     type: Date,
     default: Date.now,

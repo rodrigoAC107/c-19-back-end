@@ -2,20 +2,39 @@ const { response } = require("express");
 const { Cases } = require("../models");
 
 const getCases = async (req, res = response) => {
-  const { limit = 5, from = 0 } = req.query;
+  const { limit = 10, from = 1, search = null } = req.query;
   const query = {
     deleted_at: null,
   };
 
-  const [total, cases] = await Promise.all([
-    Cases.countDocuments(query),
-    Cases.find(query).skip(Number(from)).limit(Number(limit)),
-  ]);
+  let skip = (from - 1) * limit;
 
-  res.json({
-    total,
-    cases,
-  });
+  if (search) {
+    const [total, cases] = await Promise.all([
+      Cases.countDocuments(query),
+      Cases.find({name:{$regex: '.*'+search+'.*', $options:'i'}}).skip(Number(skip)).limit(Number(limit)),
+    ]);
+
+    res.json({
+      page: Number(from),
+      count_pages: Number(total / limit),
+      total,
+      cases
+    });
+  }else {
+    const [total, cases] = await Promise.all([
+      Cases.countDocuments(query),
+      Cases.find(query).skip(Number(skip)).limit(Number(limit)),
+    ]);
+
+    res.json({
+      page: Number(from),
+      count_pages: Number(total / limit),
+      total,
+      cases,
+    });
+  }
+
 };
 
 const getCase = async (req, res = response) => {
