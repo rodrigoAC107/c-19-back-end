@@ -40,9 +40,9 @@ const getCases = async (req, res = response) => {
 const getCase = async (req, res = response) => {
   
   const { id } = req.params;
-  
-  const caseDB = await Cases.findOne({id});
 
+  const caseDB = await Cases.findById(id);
+  
   res.json(caseDB);
 }
 

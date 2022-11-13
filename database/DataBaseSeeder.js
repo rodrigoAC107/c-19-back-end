@@ -6,9 +6,9 @@ const mongoose = require("mongoose");
 const seeds = [
   require("./seeders/UsersSeeders"),
   require("./seeders/CasesSeeders"),
-  require("./seeders/LaboratoriesSeeders")
+  require("./seeders/LaboratoriesSeeders"),
 ];
-  
+
 let seedsDone = 0;
 
 // Make the connection
